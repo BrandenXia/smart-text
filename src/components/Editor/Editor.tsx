@@ -9,14 +9,14 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { useAtomValue } from "jotai";
 import { fontSizeAtom } from "./store.ts";
 import theme from "./theme.ts";
-import ToolbarPlugin from "./plugin/ToolbarPlugin.tsx";
+import ToolbarPlugin from "./plugin/ToolbarPlugin";
 
 const onError = (error: Error, editor: LexicalEditor) => {
   console.error(error, editor);
 };
 
 const Placeholder = () => (
-  <div className="text-base-content/50 pointer-events-none absolute left-0 top-0 inline-block select-none text-ellipsis">
+  <div className="pointer-events-none absolute left-0 top-0 inline-block select-none text-ellipsis">
     Start typing...
   </div>
 );
