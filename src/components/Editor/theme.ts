@@ -5,8 +5,8 @@ const theme = {
     bold: "font-bold",
     italic: "italic",
     strikethrough: "line-through",
-    underline: "underline"
-  }
+    underline: "underline",
+  },
 } satisfies EditorThemeClasses;
 
 export default theme;

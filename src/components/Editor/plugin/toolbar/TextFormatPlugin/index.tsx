@@ -10,10 +10,11 @@ import {
 } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
+import cn from "@utils/cn.ts";
 
 const LowPriority = 1;
 
-const TextFormatPlugin = () => {
+const TextFormatPlugin = ({ className = "" }: { className?: string }) => {
   const [editor] = useLexicalComposerContext();
   const [formatStates, setFormatStates] = useAtom(formatStatesAtom);
 
@@ -47,12 +48,21 @@ const TextFormatPlugin = () => {
   );
 
   return TextFormats.map((format, index) => (
-    <button
-      key={index}
-      onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
-    >
-      <div className={FormatIconMap[format]} />
-    </button>
+    <span key={index}>
+      <input
+        type="checkbox"
+        className="peer hidden"
+        id={format}
+        checked={formatStates[format]}
+        onChange={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
+      />
+      <label
+        className={cn(className, "flex")}
+        htmlFor={format}
+      >
+        <i className={cn(FormatIconMap[format], "size-6")} />
+      </label>
+    </span>
   ));
 };
 
