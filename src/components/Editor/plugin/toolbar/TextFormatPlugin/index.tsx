@@ -56,10 +56,7 @@ const TextFormatPlugin = ({ className = "" }: { className?: string }) => {
         checked={formatStates[format]}
         onChange={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
       />
-      <label
-        className={cn(className, "flex")}
-        htmlFor={format}
-      >
+      <label className={cn(className, "flex cursor-pointer")} htmlFor={format}>
         <i className={cn(FormatIconMap[format], "size-6")} />
       </label>
     </span>
