@@ -1,5 +1,4 @@
 import { TextFormatType } from "lexical";
-import { atom } from "jotai";
 
 const TextFormats: TextFormatType[] = [
   "bold",
@@ -17,12 +16,10 @@ const FormatIconMap = {
 
 type FormatStatesType = Record<TextFormatType, boolean>;
 
-const formatStatesAtom = atom<FormatStatesType>(
-  TextFormats.reduce(
-    (acc, format) => ({ ...acc, [format]: false }),
-    {} as FormatStatesType,
-  ),
+const formatInitialState = TextFormats.reduce(
+  (acc, format) => ({ ...acc, [format]: false }),
+  {} as FormatStatesType,
 );
 
-export { FormatIconMap, TextFormats, formatStatesAtom };
+export { FormatIconMap, TextFormats, formatInitialState };
 export type { FormatStatesType };

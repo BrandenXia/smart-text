@@ -5,7 +5,6 @@ import {
   REDO_COMMAND,
   UNDO_COMMAND,
 } from "lexical";
-import { atom } from "jotai";
 
 type EditorCommandType = "undo" | "redo";
 
@@ -22,14 +21,10 @@ const CommandsIconMap: Record<EditorCommandType, string> = {
   redo: "i-ph-arrow-clockwise-duotone",
 };
 
-type CommandsStateType = Record<EditorCommandType, boolean>;
-
-const commandsStateAtom = atom<CommandsStateType>(
-  Object.keys(LexicalCommands).reduce(
-    (acc, command) => ({ ...acc, [command]: false }),
-    {} as Record<EditorCommandType, boolean>,
-  ),
+const commandsInitialState = Object.keys(LexicalCommands).reduce(
+  (acc, command) => ({ ...acc, [command]: false }),
+  {} as Record<EditorCommandType, boolean>,
 );
 
-export { CommandsIconMap, LexicalCommands, commandsStateAtom };
-export type { EditorCommandType, CommandsStateType };
+export { CommandsIconMap, LexicalCommands, commandsInitialState };
+export type { EditorCommandType };

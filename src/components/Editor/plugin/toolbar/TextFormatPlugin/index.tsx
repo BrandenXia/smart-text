@@ -1,7 +1,6 @@
-import { useAtom } from "jotai";
-import { FormatIconMap, formatStatesAtom, TextFormats } from "./formats.ts";
+import { FormatIconMap, formatInitialState, TextFormats } from "./formats.ts";
 import type { FormatStatesType } from "./formats.ts";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   $getSelection,
   $isRangeSelection,
@@ -16,35 +15,35 @@ const LowPriority = 1;
 
 const TextFormatPlugin = ({ className = "" }: { className?: string }) => {
   const [editor] = useLexicalComposerContext();
-  const [formatStates, setFormatStates] = useAtom(formatStatesAtom);
+  const [formatState, setFormatState] = useState(formatInitialState);
 
-  const updateStates = useCallback(() => {
+  const updateState = useCallback(() => {
     const selection = $getSelection();
     if (!$isRangeSelection(selection)) return;
-    setFormatStates(
+    setFormatState(
       TextFormats.reduce(
         (acc, format) => ({ ...acc, [format]: selection.hasFormat(format) }),
         {} as FormatStatesType,
       ),
     );
-  }, [setFormatStates]);
+  }, [setFormatState]);
 
   useEffect(
     () =>
       mergeRegister(
         editor.registerUpdateListener(({ editorState }) =>
-          editorState.read(() => updateStates()),
+          editorState.read(() => updateState()),
         ),
         editor.registerCommand(
           SELECTION_CHANGE_COMMAND,
           () => {
-            updateStates();
+            updateState();
             return false;
           },
           LowPriority,
         ),
       ),
-    [editor, updateStates],
+    [editor, updateState],
   );
 
   return TextFormats.map((format, index) => (
@@ -53,7 +52,7 @@ const TextFormatPlugin = ({ className = "" }: { className?: string }) => {
         type="checkbox"
         className="peer hidden"
         id={format}
-        checked={formatStates[format]}
+        checked={formatState[format]}
         onChange={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
       />
       <label className={cn(className, "flex cursor-pointer")} htmlFor={format}>

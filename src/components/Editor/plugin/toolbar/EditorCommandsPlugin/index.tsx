@@ -1,10 +1,9 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { useEffect } from "react";
-import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
 import {
   CommandsIconMap,
-  commandsStateAtom,
+  commandsInitialState,
   EditorCommandType,
   LexicalCommands,
 } from "./commands.ts";
@@ -12,13 +11,9 @@ import cn from "@utils/cn.ts";
 
 const LowPriority = 1;
 
-const EditorCommandsPlugin = ({
-  className = "",
-}: {
-  className?: string;
-}) => {
+const EditorCommandsPlugin = ({ className = "" }: { className?: string }) => {
   const [editor] = useLexicalComposerContext();
-  const [commandsState, setCommandsState] = useAtom(commandsStateAtom);
+  const [commandsState, setCommandsState] = useState(commandsInitialState);
 
   useEffect(
     () =>
