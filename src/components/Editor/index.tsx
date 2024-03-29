@@ -10,6 +10,8 @@ import theme from "./theme.ts";
 import Toolbar, { ToolbarDivider } from "./ui/Toolbar.tsx";
 import EditorCommandsPlugin from "@components/Editor/plugin/toolbar/EditorCommandsPlugin";
 import TextFormatPlugin from "@components/Editor/plugin/toolbar/TextFormatPlugin";
+import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
+import { transformers, nodes } from "./transformer.ts";
 
 const onError = (error: Error, editor: LexicalEditor) => {
   console.error(error, editor);
@@ -31,6 +33,7 @@ const initialConfig = {
   namespace: "smart-text-editor",
   theme,
   onError,
+  nodes,
 };
 
 const Editor = () => {
@@ -41,15 +44,16 @@ const Editor = () => {
         <ToolbarDivider />
         <TextFormatPlugin className="rounded-xl p-2 transition-colors hover:bg-base-200 peer-checked:bg-base-200 dark:hover:bg-neutral dark:peer-checked:bg-neutral" />
       </Toolbar>
-      <div className="relative size-full font-serif text-xl text-base-content">
+      <div className="relative mx-2 mt-3 size-full font-serif text-xl text-base-content">
         <RichTextPlugin
           contentEditable={<TextArea />}
           placeholder={<Placeholder />}
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <HistoryPlugin />
-        <AutoFocusPlugin />
       </div>
+      <HistoryPlugin />
+      <AutoFocusPlugin />
+      <MarkdownShortcutPlugin transformers={transformers} />
     </LexicalComposer>
   );
 };
