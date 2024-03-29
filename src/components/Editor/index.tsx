@@ -7,7 +7,7 @@ import { ReactNode } from "react";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import theme from "./theme.ts";
-import Toolbar, { ToolbarDivider } from "./ui/Toolbar.tsx";
+import Toolbar from "./ui/Toolbar.tsx";
 import EditorCommandsPlugin from "@components/Editor/plugin/toolbar/EditorCommandsPlugin";
 import TextFormatPlugin from "@components/Editor/plugin/toolbar/TextFormatPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
@@ -39,11 +39,11 @@ const initialConfig = {
 const Editor = () => {
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <Toolbar>
-        <EditorCommandsPlugin className="rounded-xl p-2 transition-colors hover:bg-base-200 disabled:cursor-not-allowed disabled:text-neutral-content disabled:hover:bg-base-100 dark:disabled:text-neutral-content/50" />
-        <ToolbarDivider />
-        <TextFormatPlugin className="rounded-xl p-2 transition-colors hover:bg-base-200 peer-checked:bg-base-200 dark:hover:bg-neutral dark:peer-checked:bg-neutral" />
-      </Toolbar>
+      <Toolbar.Root>
+        <EditorCommandsPlugin button={Toolbar.Button} />
+        <Toolbar.Divider />
+        <TextFormatPlugin toggleButton={Toolbar.ToggleButton} />
+      </Toolbar.Root>
       <div className="relative mx-2 mt-3 size-full font-serif text-xl text-base-content">
         <RichTextPlugin
           contentEditable={<TextArea />}

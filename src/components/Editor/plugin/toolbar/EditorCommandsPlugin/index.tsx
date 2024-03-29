@@ -1,6 +1,6 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
-import { useEffect, useState } from "react";
+import { ButtonHTMLAttributes, FC, useEffect, useState } from "react";
 import {
   CommandsIconMap,
   commandsInitialState,
@@ -11,7 +11,9 @@ import cn from "@utils/cn.ts";
 
 const LowPriority = 1;
 
-const EditorCommandsPlugin = ({ className = "" }: { className?: string }) => {
+const EditorCommandsPlugin = (props: {
+  button: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
+}) => {
   const [editor] = useLexicalComposerContext();
   const [commandsState, setCommandsState] = useState(commandsInitialState);
 
@@ -36,9 +38,9 @@ const EditorCommandsPlugin = ({ className = "" }: { className?: string }) => {
     ([command, [, commandType]], index) => {
       const enabled = commandsState[command as EditorCommandType];
       return (
-        <button
+        <props.button
           key={index}
-          className={cn(className, "flex")}
+          className="flex"
           disabled={!enabled}
           onClick={() => editor.dispatchCommand(commandType, undefined)}
         >
@@ -48,7 +50,7 @@ const EditorCommandsPlugin = ({ className = "" }: { className?: string }) => {
               "size-6",
             )}
           />
-        </button>
+        </props.button>
       );
     },
   );

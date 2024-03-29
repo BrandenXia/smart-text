@@ -1,6 +1,12 @@
 import { FormatIconMap, formatInitialState, TextFormats } from "./formats.ts";
 import type { FormatStatesType } from "./formats.ts";
-import { useCallback, useEffect, useState } from "react";
+import {
+  FC,
+  InputHTMLAttributes,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import {
   $getSelection,
   $isRangeSelection,
@@ -13,7 +19,9 @@ import cn from "@utils/cn.ts";
 
 const LowPriority = 1;
 
-const TextFormatPlugin = ({ className = "" }: { className?: string }) => {
+const TextFormatPlugin = (props: {
+  toggleButton: FC<InputHTMLAttributes<HTMLInputElement>>;
+}) => {
   const [editor] = useLexicalComposerContext();
   const [formatState, setFormatState] = useState(formatInitialState);
 
@@ -47,18 +55,14 @@ const TextFormatPlugin = ({ className = "" }: { className?: string }) => {
   );
 
   return TextFormats.map((format, index) => (
-    <span key={index}>
-      <input
-        type="checkbox"
-        className="peer hidden"
-        id={format}
-        checked={formatState[format]}
-        onChange={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
-      />
-      <label className={cn(className, "flex cursor-pointer")} htmlFor={format}>
-        <i className={cn(FormatIconMap[format], "size-6")} />
-      </label>
-    </span>
+    <props.toggleButton
+      key={index}
+      id={format}
+      checked={formatState[format]}
+      onChange={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
+    >
+      <i className={cn(FormatIconMap[format], "size-6")} />
+    </props.toggleButton>
   ));
 };
 
