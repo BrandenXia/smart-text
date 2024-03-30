@@ -8,8 +8,7 @@ import {
   LexicalCommands,
 } from "./commands.ts";
 import cn from "@utils/cn.ts";
-
-const LowPriority = 1;
+import { COMMAND_PRIORITY_LOW } from "lexical";
 
 const EditorCommandsPlugin = (props: {
   button: FC<ButtonHTMLAttributes<HTMLButtonElement>>;
@@ -27,7 +26,7 @@ const EditorCommandsPlugin = (props: {
               setCommandsState((prev) => ({ ...prev, [command]: payload }));
               return false;
             },
-            LowPriority,
+            COMMAND_PRIORITY_LOW
           ),
         ),
       ),

@@ -9,15 +9,13 @@ import {
 } from "react";
 import {
   $getSelection,
-  $isRangeSelection,
+  $isRangeSelection, COMMAND_PRIORITY_LOW,
   FORMAT_TEXT_COMMAND,
-  SELECTION_CHANGE_COMMAND,
+  SELECTION_CHANGE_COMMAND
 } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import cn from "@utils/cn.ts";
-
-const LowPriority = 1;
 
 const TextFormatPlugin = (props: {
   toggleButton: FC<InputHTMLAttributes<HTMLInputElement>>;
@@ -48,7 +46,7 @@ const TextFormatPlugin = (props: {
             updateState();
             return false;
           },
-          LowPriority,
+          COMMAND_PRIORITY_LOW
         ),
       ),
     [editor, updateState],

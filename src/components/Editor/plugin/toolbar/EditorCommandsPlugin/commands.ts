@@ -17,8 +17,8 @@ const LexicalCommands: Record<
 };
 
 const CommandsIconMap: Record<EditorCommandType, string> = {
-  undo: "i-ph-arrow-counter-clockwise-duotone",
-  redo: "i-ph-arrow-clockwise-duotone",
+  undo: "i-ph-arrow-counter-clockwise",
+  redo: "i-ph-arrow-clockwise",
 };
 
 const commandsInitialState = Object.keys(LexicalCommands).reduce(
