@@ -3,13 +3,11 @@ import cn from "@utils/cn.ts";
 
 const Root = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
   ({ className, children, ...props }, ref) => (
-    <div className="flex w-full justify-center md:justify-start">
-      <div
-        className={cn("flex items-center gap-x-1 p-2", className)}
-        ref={ref}
-        {...props}
-      >
-        {children}
+    <div className={className}>
+      <div className="flex w-full justify-center md:justify-start">
+        <div className="flex items-center gap-x-1 p-2" ref={ref} {...props}>
+          {children}
+        </div>
       </div>
     </div>
   ),

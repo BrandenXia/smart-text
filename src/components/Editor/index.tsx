@@ -24,7 +24,7 @@ const Placeholder = () => (
 );
 
 const TextArea = ({ children }: { children?: ReactNode }) => (
-  <ContentEditable className="relative size-full overflow-auto outline-none">
+  <ContentEditable className="relative size-full outline-none">
     {children}
   </ContentEditable>
 );
@@ -54,6 +54,23 @@ const Editor = () => {
       <HistoryPlugin />
       <AutoFocusPlugin />
       <MarkdownShortcutPlugin transformers={transformers} />
+      <div className="flex size-full flex-col">
+        <Toolbar.Root className="flex-none">
+          <EditorCommandsPlugin button={Toolbar.Button} />
+          <Toolbar.Divider />
+          <TextFormatPlugin toggleButton={Toolbar.ToggleButton} />
+        </Toolbar.Root>
+        <div className="relative mx-2 mt-3 overflow-auto font-serif text-xl text-base-content">
+          <RichTextPlugin
+            contentEditable={<TextArea />}
+            placeholder={<Placeholder />}
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+        </div>
+        <HistoryPlugin />
+        <AutoFocusPlugin />
+        <MarkdownShortcutPlugin transformers={transformers} />
+      </div>
     </LexicalComposer>
   );
 };
