@@ -10,8 +10,19 @@ const theme = {
     h6: "text-base font-bold",
   },
   list: {
-    ul: "list-inside list-disc",
-    ol: "list-inside list-decimal",
+    ul: "list-outside list-revert",
+    ol: "list-outside",
+    olDepth: [
+      "list-decimal",
+      "list-upper-alpha",
+      "list-lower-alpha",
+      "list-upper-roman",
+      "list-lower-roman",
+    ],
+    listitem: "ml-6",
+    nested: {
+      listitem: "list-none",
+    },
   },
   text: {
     bold: "font-bold",

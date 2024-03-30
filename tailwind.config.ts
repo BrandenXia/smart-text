@@ -6,6 +6,15 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     colors: colorScheme,
+    extend: {
+      listStyleType: {
+        "upper-alpha": "upper-alpha",
+        "lower-alpha": "lower-alpha",
+        "upper-roman": "upper-roman",
+        "lower-roman": "lower-roman",
+        revert: "revert",
+      },
+    },
   },
   plugins: [
     iconsPlugin({
