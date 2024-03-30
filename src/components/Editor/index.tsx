@@ -45,7 +45,7 @@ const Editor = () => {
           <Toolbar.Divider />
           <TextFormatPlugin toggleButton={Toolbar.ToggleButton} />
         </Toolbar.Root>
-        <div className="relative mx-2 mt-3 overflow-auto font-serif text-xl text-base-content">
+        <div className="relative mx-2 mt-3 flex-1 overflow-auto font-serif text-xl text-base-content">
           <RichTextPlugin
             contentEditable={<TextArea />}
             placeholder={<Placeholder />}
