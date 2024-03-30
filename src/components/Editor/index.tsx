@@ -39,21 +39,6 @@ const initialConfig = {
 const Editor = () => {
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <Toolbar.Root>
-        <EditorCommandsPlugin button={Toolbar.Button} />
-        <Toolbar.Divider />
-        <TextFormatPlugin toggleButton={Toolbar.ToggleButton} />
-      </Toolbar.Root>
-      <div className="relative mx-2 mt-3 size-full font-serif text-xl text-base-content">
-        <RichTextPlugin
-          contentEditable={<TextArea />}
-          placeholder={<Placeholder />}
-          ErrorBoundary={LexicalErrorBoundary}
-        />
-      </div>
-      <HistoryPlugin />
-      <AutoFocusPlugin />
-      <MarkdownShortcutPlugin transformers={transformers} />
       <div className="flex size-full flex-col">
         <Toolbar.Root className="flex-none">
           <EditorCommandsPlugin button={Toolbar.Button} />
