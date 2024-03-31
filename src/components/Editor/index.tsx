@@ -27,7 +27,10 @@ const Placeholder = () => (
 );
 
 const TextArea = ({ children }: { children?: ReactNode }) => (
-  <ContentEditable className="relative size-full outline-none">
+  <ContentEditable
+    ariaLabel="text editor"
+    className="relative size-full outline-none"
+  >
     {children}
   </ContentEditable>
 );

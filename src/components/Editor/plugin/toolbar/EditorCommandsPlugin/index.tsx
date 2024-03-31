@@ -38,6 +38,7 @@ const EditorCommandsPlugin = (props: {
       const enabled = commandsState[command as EditorCommandType];
       return (
         <props.button
+          aria-label={command}
           key={index}
           className="flex"
           disabled={!enabled}

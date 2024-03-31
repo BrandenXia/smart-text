@@ -50,6 +50,7 @@ const TextFormatPlugin = (props: {
 
   return TextFormats.map((format, index) => (
     <props.toggleItem
+      aria-label={format}
       key={index}
       onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
       value={format}

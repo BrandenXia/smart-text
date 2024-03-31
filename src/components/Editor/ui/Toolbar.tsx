@@ -70,11 +70,17 @@ const ToggleItem = forwardRef<
 
 const SelectRoot = forwardRef<
   ElementRef<typeof SelectPrimitive.Root>,
-  ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & { className?: string }
->(({ children, className, ...props }, ref) => (
+  ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
+    className?: string;
+    "aria-label"?: string;
+  }
+>(({ children, className, "aria-label": ariaLabel, ...props }, ref) => (
   <SelectPrimitive.Root {...props}>
     <ToolbarPrimitive.Button asChild>
-      <SelectPrimitive.Trigger className="flex items-center justify-center gap-x-3 rounded-xl p-2 leading-none transition-colors hover:bg-base-200">
+      <SelectPrimitive.Trigger
+        className="flex items-center justify-center gap-x-3 rounded-xl p-2 leading-none transition-colors hover:bg-base-200"
+        aria-label={ariaLabel}
+      >
         <SelectPrimitive.Value />
         <SelectPrimitive.Icon className="flex">
           <div className="i-ph-caret-down" />

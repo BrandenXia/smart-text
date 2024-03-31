@@ -21,7 +21,7 @@ import type { SelectProps, SelectItemProps } from "@radix-ui/react-select";
 import cn from "@utils/cn.ts";
 
 const BlockTypePlugin = (props: {
-  selectRoot: FC<SelectProps & { classname?: string }>;
+  selectRoot: FC<SelectProps & { classname?: string; "aria-label"?: string }>;
   selectOption: FC<SelectItemProps>;
 }) => {
   const [editor] = useLexicalComposerContext();
@@ -92,10 +92,10 @@ const BlockTypePlugin = (props: {
   );
 
   return (
-    <props.selectRoot value={blockType} onValueChange={formatBlockType}>
+    <props.selectRoot value={blockType} onValueChange={formatBlockType} aria-label="Format text type">
       {Object.entries(BlockTypeToBlockNameIcon).map(([type, [name, icon]]) => {
         return (
-          <props.selectOption key={type} value={type}>
+          <props.selectOption aria-label={name} key={type} value={type}>
             <span className="flex items-center justify-center gap-x-2">
               <span className={cn("size-6", icon)} />
               {name}
