@@ -25,7 +25,8 @@ const BlockTypeToBlockNameIcon: Record<BlockType, [string, string]> = {
   h6: ["Heading 6", "i-ph-text-h-six"],
 };
 
-const createList = (type: "bullet" | "number") => $createListNode(type).append($createListItemNode());
+const createList = (type: "bullet" | "number") =>
+  $createListNode(type).append($createListItemNode());
 
 const FormatBlockTypeCommand: Record<BlockType, () => ElementNode> = {
   h1: () => $createHeadingNode("h1"),
