@@ -15,6 +15,7 @@ import { transformers, nodes } from "./transformer.ts";
 import BlockTypePlugin from "@components/Editor/plugin/toolbar/BlockTypePlugin";
 import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import TreeViewPlugin from "@components/Editor/plugin/TreeViewPlugin.tsx";
 
 const onError = (error: Error, editor: LexicalEditor) => {
   console.error(error, editor);
@@ -76,6 +77,7 @@ const Editor = () => {
         <ListPlugin />
         <TabIndentationPlugin />
       </div>
+      {import.meta.env.DEV && <TreeViewPlugin />}
     </LexicalComposer>
   );
 };
