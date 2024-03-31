@@ -12,6 +12,9 @@ import EditorCommandsPlugin from "@components/Editor/plugin/toolbar/EditorComman
 import TextFormatPlugin from "@components/Editor/plugin/toolbar/TextFormatPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { transformers, nodes } from "./transformer.ts";
+import BlockTypePlugin from "@components/Editor/plugin/toolbar/BlockTypePlugin";
+import { TabIndentationPlugin } from "@lexical/react/LexicalTabIndentationPlugin";
+import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 
 const onError = (error: Error, editor: LexicalEditor) => {
   console.error(error, editor);
@@ -44,6 +47,11 @@ const Editor = () => {
           <EditorCommandsPlugin button={Toolbar.Button} />
           <Toolbar.Divider />
           <TextFormatPlugin toggleButton={Toolbar.ToggleButton} />
+          <Toolbar.Divider />
+          <BlockTypePlugin
+            selectRoot={Toolbar.Select.Root}
+            selectOption={Toolbar.Select.Option}
+          />
         </Toolbar.Root>
         <div className="relative mx-2 mt-3 flex-1 overflow-auto font-serif text-xl text-base-content">
           <RichTextPlugin
@@ -55,6 +63,8 @@ const Editor = () => {
         <HistoryPlugin />
         <AutoFocusPlugin />
         <MarkdownShortcutPlugin transformers={transformers} />
+        <ListPlugin />
+        <TabIndentationPlugin />
       </div>
     </LexicalComposer>
   );

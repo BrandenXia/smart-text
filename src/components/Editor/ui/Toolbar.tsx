@@ -1,5 +1,6 @@
-import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 import cn from "@utils/cn.ts";
+import * as SelectPrimitive from "@radix-ui/react-select";
 
 const Root = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
   ({ className, children, ...props }, ref) => (
@@ -17,7 +18,7 @@ const Divider = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(
   ({ className, ...props }, ref) => (
     <div
       className={cn(
-        "mx-4 h-3/4 w-0 border-r border-neutral-content",
+        "mx-3 h-3/4 w-0 border-r border-neutral-content",
         className,
       )}
       ref={ref}
@@ -44,7 +45,13 @@ const ToggleButton = forwardRef<
   HTMLInputElement,
   ComponentPropsWithoutRef<"input">
 >(({ className, children, id, ...props }, ref) => (
-  <span>
+  <label
+    className={cn(
+      "flex cursor-pointer rounded-xl p-2 transition-colors hover:bg-base-200 has-[:checked]:bg-base-200 dark:hover:bg-neutral dark:has-[:checked]:bg-neutral",
+      className,
+    )}
+    htmlFor={id}
+  >
     <input
       type="checkbox"
       className="peer hidden"
@@ -52,16 +59,52 @@ const ToggleButton = forwardRef<
       {...props}
       ref={ref}
     />
-    <label
-      className={cn(
-        "flex cursor-pointer rounded-xl p-2 transition-colors hover:bg-base-200 peer-checked:bg-base-200 dark:hover:bg-neutral dark:peer-checked:bg-neutral",
-        className,
-      )}
-      htmlFor={id}
-    >
-      {children}
-    </label>
-  </span>
+    {children}
+  </label>
+));
+
+const SelectRoot = forwardRef<
+  ElementRef<typeof SelectPrimitive.Root>,
+  ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & { className?: string }
+>(({ children, className, ...props }, ref) => (
+  <SelectPrimitive.Root {...props}>
+    <SelectPrimitive.Trigger className="flex items-center justify-center gap-x-3 rounded-xl p-2 leading-none outline-none transition-colors hover:bg-base-200">
+      <SelectPrimitive.Value />
+      <SelectPrimitive.Icon className="flex">
+        <div className="i-ph-caret-down" />
+      </SelectPrimitive.Icon>
+    </SelectPrimitive.Trigger>
+    <SelectPrimitive.Portal>
+      <SelectPrimitive.Content
+        position="popper"
+        className={cn(
+          "rounded-lg border border-base-content/5 shadow dark:border-base-content/15",
+          className,
+        )}
+        ref={ref}
+      >
+        <SelectPrimitive.Viewport className="p-1">
+          {children}
+        </SelectPrimitive.Viewport>
+      </SelectPrimitive.Content>
+    </SelectPrimitive.Portal>
+  </SelectPrimitive.Root>
+));
+
+const SelectOption = forwardRef<
+  ElementRef<typeof SelectPrimitive.Item>,
+  ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
+>(({ children, className, ...props }, ref) => (
+  <SelectPrimitive.Item
+    className={cn(
+      "relative flex select-none items-center rounded-lg p-2 leading-none data-[highlighted]:bg-base-300 data-[highlighted]:outline-none",
+      className,
+    )}
+    ref={ref}
+    {...props}
+  >
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+  </SelectPrimitive.Item>
 ));
 
 const Toolbar = {
@@ -69,6 +112,10 @@ const Toolbar = {
   Divider,
   Button,
   ToggleButton,
+  Select: {
+    Root: SelectRoot,
+    Option: SelectOption,
+  },
 };
 
 export default Toolbar;
