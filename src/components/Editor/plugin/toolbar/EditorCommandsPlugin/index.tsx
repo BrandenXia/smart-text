@@ -26,7 +26,7 @@ const EditorCommandsPlugin = (props: {
               setCommandsState((prev) => ({ ...prev, [command]: payload }));
               return false;
             },
-            COMMAND_PRIORITY_LOW
+            COMMAND_PRIORITY_LOW,
           ),
         ),
       ),

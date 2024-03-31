@@ -92,7 +92,11 @@ const BlockTypePlugin = (props: {
   );
 
   return (
-    <props.selectRoot value={blockType} onValueChange={formatBlockType} aria-label="Format text type">
+    <props.selectRoot
+      value={blockType}
+      onValueChange={formatBlockType}
+      aria-label="Format text type"
+    >
       {Object.entries(BlockTypeToBlockNameIcon).map(([type, [name, icon]]) => {
         return (
           <props.selectOption aria-label={name} key={type} value={type}>
