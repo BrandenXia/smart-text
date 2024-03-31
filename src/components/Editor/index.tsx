@@ -46,7 +46,9 @@ const Editor = () => {
         <Toolbar.Root className="flex-none">
           <EditorCommandsPlugin button={Toolbar.Button} />
           <Toolbar.Divider />
-          <TextFormatPlugin toggleButton={Toolbar.ToggleButton} />
+          <Toolbar.Toggle.Group type="multiple">
+            <TextFormatPlugin toggleItem={Toolbar.Toggle.Item} />
+          </Toolbar.Toggle.Group>
           <Toolbar.Divider />
           <BlockTypePlugin
             selectRoot={Toolbar.Select.Root}

@@ -1,24 +1,20 @@
 import { FormatIconMap, formatInitialState, TextFormats } from "./formats.ts";
 import type { FormatStatesType } from "./formats.ts";
-import {
-  FC,
-  InputHTMLAttributes,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import {
   $getSelection,
-  $isRangeSelection, COMMAND_PRIORITY_LOW,
+  $isRangeSelection,
+  COMMAND_PRIORITY_LOW,
   FORMAT_TEXT_COMMAND,
-  SELECTION_CHANGE_COMMAND
+  SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { mergeRegister } from "@lexical/utils";
 import cn from "@utils/cn.ts";
+import { ToolbarToggleItemProps } from "@radix-ui/react-toolbar";
 
 const TextFormatPlugin = (props: {
-  toggleButton: FC<InputHTMLAttributes<HTMLInputElement>>;
+  toggleItem: FC<ToolbarToggleItemProps>;
 }) => {
   const [editor] = useLexicalComposerContext();
   const [formatState, setFormatState] = useState(formatInitialState);
@@ -46,21 +42,21 @@ const TextFormatPlugin = (props: {
             updateState();
             return false;
           },
-          COMMAND_PRIORITY_LOW
+          COMMAND_PRIORITY_LOW,
         ),
       ),
     [editor, updateState],
   );
 
   return TextFormats.map((format, index) => (
-    <props.toggleButton
+    <props.toggleItem
       key={index}
-      id={format}
-      checked={formatState[format]}
-      onChange={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
+      onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, format)}
+      value={format}
+      data-state={formatState[format] ? "on" : "off"}
     >
       <i className={cn(FormatIconMap[format], "size-6")} />
-    </props.toggleButton>
+    </props.toggleItem>
   ));
 };
 
