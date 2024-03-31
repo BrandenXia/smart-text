@@ -21,7 +21,11 @@ const onError = (error: Error, editor: LexicalEditor) => {
 };
 
 const Placeholder = () => (
-  <div className="pointer-events-none absolute left-0 top-0 inline-block select-none text-ellipsis text-neutral-content">
+  <div
+    aria-hidden
+    aria-disabled
+    className="pointer-events-none absolute left-0 top-0 inline-block select-none text-ellipsis text-neutral-content"
+  >
     Start typing...
   </div>
 );
@@ -29,6 +33,7 @@ const Placeholder = () => (
 const TextArea = ({ children }: { children?: ReactNode }) => (
   <ContentEditable
     ariaLabel="text editor"
+    aria-placeholder="Start typing..."
     className="relative size-full outline-none"
   >
     {children}
