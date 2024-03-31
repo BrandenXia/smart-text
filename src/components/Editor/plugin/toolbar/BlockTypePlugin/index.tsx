@@ -59,7 +59,6 @@ const BlockTypePlugin = (props: {
     }
   }, [editor]);
 
-  // TODO: this function doesn't work as expected when formatting a list
   const formatBlockType = useCallback(
     (type: BlockType) => {
       const command = FormatBlockTypeCommand[type];

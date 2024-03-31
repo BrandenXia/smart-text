@@ -1,6 +1,6 @@
 import { $createParagraphNode, ElementNode } from "lexical";
 import { $createHeadingNode } from "@lexical/rich-text";
-import { $createListNode } from "@lexical/list";
+import { $createListItemNode, $createListNode } from "@lexical/list";
 
 type BlockType =
   | "paragraph"
@@ -25,6 +25,8 @@ const BlockTypeToBlockNameIcon: Record<BlockType, [string, string]> = {
   h6: ["Heading 6", "i-ph-text-h-six"],
 };
 
+const createList = (type: "bullet" | "number") => $createListNode(type).append($createListItemNode());
+
 const FormatBlockTypeCommand: Record<BlockType, () => ElementNode> = {
   h1: () => $createHeadingNode("h1"),
   h2: () => $createHeadingNode("h2"),
@@ -32,8 +34,8 @@ const FormatBlockTypeCommand: Record<BlockType, () => ElementNode> = {
   h4: () => $createHeadingNode("h4"),
   h5: () => $createHeadingNode("h5"),
   h6: () => $createHeadingNode("h6"),
-  bullet: () => $createListNode("bullet"),
-  number: () => $createListNode("number"),
+  bullet: () => createList("bullet"),
+  number: () => createList("number"),
   paragraph: $createParagraphNode,
 };
 
